@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd ">
+
+    <!--  <context:property-placeholder location="classpath:/com/myapp/mongodb/config/mongo.properties"/>
+
+      <mongo:mongo host="${mongo.host}" port="${mongo.port}">
+          <mongo:options
+                  connections-per-host="${mongo.connectionsPerHost}"
+                  threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
+                  connect-timeout="${mongo.connectTimeout}"
+                  max-wait-time="${mongo.maxWaitTime}"
+                  auto-connect-retry="${mongo.autoConnectRetry}"
+                  socket-keep-alive="${mongo.socketKeepAlive}"
+                  socket-timeout="${mongo.socketTimeout}"
+                  slave-ok="${mongo.slaveOk}"
+                  write-number="1"
+                  write-timeout="0"
+                  write-fsync="true"/>
+      </mongo:mongo> -->
+
+    <!-- Factory bean that creates the Mongo instance -->
+    <!--mongodb://<dbuser>:<dbpassword>@ds027738.mongolab.com:27738/lifeplan-->
+
+    <mongo:db-factory id="mongoDbFactory"
+                      host="${mongo.host}"
+                      port="${mongo.port}"
+                      dbname="${mongo.dbname}"
+                      username="${mongo.username}"
+                      password="${mongo.password}"/>
+
+    <!-- Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes -->
+    <!--<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
+
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <property name="writeConcern" value="SAFE"/> <!-- stops mongo from over-writing records when there is error or conflict-->
+    </bean>
+
+</beans>
