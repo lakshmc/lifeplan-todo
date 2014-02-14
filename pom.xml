@@ -97,20 +97,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
-            <!--<exclusions>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-expression</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>-->
         </dependency>
 
         <dependency>
@@ -213,9 +199,9 @@
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>
-                   <!-- <webapp>
-                        <contextPath>/</contextPath>
-                    </webapp>-->
+                    <!-- <webapp>
+                         <contextPath>/</contextPath>
+                     </webapp>-->
                     <stopKey/>
                     <stopPort/>
                 </configuration>
