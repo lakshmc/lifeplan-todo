@@ -10,11 +10,11 @@ Coz I think so, that's why! Also,
 * Create and manage your vacations and other travel escapades.
 
 ### Get Started
-* Install the technologies/frameworks [^technologiesList]
+* Install the technologies/frameworks listed below
 * set the log file location in src/main/resources/log4j.properties _defaults to ./log/lifeplan.log
 * set the mongodb instance connection parameters in src/main/resources/properties/lifeplan-prod.properties
 
-[^technologiesList] #### Technologies
+#### Technologies
 * Java 1.7
 * Spring 3.2 MVC
 * Spring Data
