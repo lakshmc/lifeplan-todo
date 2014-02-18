@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
+angular.module('lifeplan.controllers', []).
     controller('MyCtrl1', [function () {
 
     }])

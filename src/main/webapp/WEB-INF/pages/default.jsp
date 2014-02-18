@@ -16,7 +16,6 @@
 <h1>${message}!</h1>
 <a href="resources/index.html">click here</a>
 </body>
-<%----%>
 
 </html>
 

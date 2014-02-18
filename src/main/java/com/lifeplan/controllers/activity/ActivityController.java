@@ -32,6 +32,7 @@ public class ActivityController {
         return activityDao.getActivityById(id);
     }
 
+    //create activity
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public
     @ResponseBody

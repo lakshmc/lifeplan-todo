@@ -18,6 +18,7 @@ public class Activity {
     private ACTIVITY_PARTICIPANT activityParticipant;
     private ACTIVITY_FEELING activityFeeling;
     private ACTIVITY_LOCATION activityLocation;
+    private boolean consuming;
     private String notes;
 
     public String getName() {
@@ -84,6 +85,14 @@ public class Activity {
         this.notes = notes;
     }
 
+    public boolean isConsuming() {
+        return consuming;
+    }
+
+    public void setConsuming(boolean consuming) {
+        this.consuming = consuming;
+    }
+
    /* name: watching a movie
     type: planned (if intentionally decided by the user) /unplanned (all other actions)
     start date-time:
@@ -91,6 +100,7 @@ public class Activity {
     participants: self|group( option to add number of people and their names)
     feeling: positive|negative|neutral
     location: home|Office|Other
+    consuming: true|false (drinking coffee or watching movie is consumption, writing something or learning something is productive)
     notes: things that you want to remember about this next time when you look at it*/
 
 }

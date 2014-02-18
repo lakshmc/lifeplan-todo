@@ -1,15 +1,13 @@
 package com.lifeplan.models;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created on 2/7/14.
  */
-@Document(collection="user")
+@Document(collection = "user")
 public class User {
 
-    @Id
     private String id;
     private String name;
 
@@ -21,7 +19,7 @@ public class User {
         this.name = name;
     }
 
-    public static User buildUser(String name){
+    public static User buildUser(String name) {
         User user = new User();
         user.setName(name);
         return user;
