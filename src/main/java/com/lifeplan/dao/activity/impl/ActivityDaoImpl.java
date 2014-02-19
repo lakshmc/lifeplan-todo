@@ -32,4 +32,9 @@ public class ActivityDaoImpl extends AbstractMongoHelper implements ActivityDao 
             createDocument(activity);
         }
     }
+
+    @Override
+    public void deleteActivityById(String id) {
+        deleteDocumentById(id, Activity.class);
+    }
 }

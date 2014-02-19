@@ -4,9 +4,11 @@ import com.lifeplan.dao.activity.ActivityDao;
 import com.lifeplan.models.activity.Activity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -30,17 +32,6 @@ public class ActivityController {
         return activityDao.getAllActivity();
     }
 
-    // get Activity by id
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Activity getActivityById(@PathVariable String id) {
-        log.debug("got id:" + id);
-        if (id.equals("123")) {
-            throw new DuplicateKeyException("test exception");
-        }
-        return activityDao.getActivityById(id);
-    }
 
     //create activity
     @RequestMapping(value = "", method = RequestMethod.POST)

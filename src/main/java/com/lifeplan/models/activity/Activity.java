@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
  */
 public class Activity {
 
+    private String id;
     private String name;
     private ACTIVITY_TYPE activityType;
     private DateTime startTimestamp;
@@ -91,6 +92,14 @@ public class Activity {
 
     public void setConsuming(boolean consuming) {
         this.consuming = consuming;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
    /* name: watching a movie

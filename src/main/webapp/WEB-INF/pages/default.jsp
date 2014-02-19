@@ -1,21 +1,59 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!doctype html>
+<html lang="en" ng-app="lifeplan">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>JSP forward Example</title>
+    <meta charset="utf-8">
+    <title>Lifeplan</title>
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="resources/common/css/bootstrap/bootswatch-cosmo/bootstrap.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
-
-
-<!--
-  Copyright (c) 1999 The Apache Software Foundation.  All rights
-  reserved.
--->
 <body>
-<h1>${message}!</h1>
-<a href="resources/index.html">click here</a>
+<div id="wrap">
+
+    <!-- Fixed navbar -->
+    <div ng-include src="'resources/app/main/layout/topnav.html'"></div>
+
+    <!-- Begin page content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!--main content-->
+            <div class="col-lg-9">
+                <%--<section id="mainSection" style="margin-top:0">--%>
+                <section id="mainSection">
+                    <ng-view>Loading...</ng-view>
+                </section>
+            </div>
+
+            <!--right nav-->
+            <div class="col-lg-3">
+                <div ng-include src="'resources/app/main/layout/leftnav.html'"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div ng-include src="'resources/app/main/layout/footer.html'"></div>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<!--<script src="resources/lib/jquery/1.10.2/jquery.js"></script>-->
+
+<script src="resources/common/js/angular/angular.js"></script>
+<script src="resources/common/js/angular/angular-route.js"></script>
+
+<script src="resources/app/main/app.js"></script>
+<script src="resources/app/main/services.js"></script>
+<script src="resources/app/main/controllers.js"></script>
+<script src="resources/app/main/filters.js"></script>
+<script src="resources/app/main/directives.js"></script>
+
+<script src="resources/app/activity/controllers/activity-controller.js"></script>
+
 </body>
-
 </html>
-

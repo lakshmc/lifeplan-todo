@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -55,9 +56,13 @@ public abstract class AbstractMongoHelper {
     }
 
     protected <T> void deleteDocumentById(String id, Class<T> clazz) {
-        Query q = new Query(Criteria.where("id").is(id));
-        mongoTemplate.remove(q, clazz);
-        log.debug("deleted id:" + id);
+        if (StringUtils.isEmpty(id)) {
+            throw new IllegalArgumentException("Id cannot be null when attempting to delete TodoItem");
+        } else {
+            Query q = new Query(Criteria.where("id").is(id));
+            mongoTemplate.remove(q, clazz);
+            log.debug("deleted id:" + id);
+        }
 
     }
 }

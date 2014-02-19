@@ -20,6 +20,7 @@ Coz I think so, that's why! Also,
 * Spring Data
 * Mongo DB
 * Maven
+* AngularJS + Twitter Bootstrap (Bootswatch Theme)
 
 ##### Free+amazing stuff I used
 * Markdown file created and edited with Mou.[^1]
