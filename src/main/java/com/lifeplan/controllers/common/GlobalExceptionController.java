@@ -1,4 +1,4 @@
-package com.lifeplan.controllers;
+package com.lifeplan.controllers.common;
 
 import com.lifeplan.models.exception.DocumentNotFoundException;
 import com.lifeplan.models.exception.ErrorResponse;
