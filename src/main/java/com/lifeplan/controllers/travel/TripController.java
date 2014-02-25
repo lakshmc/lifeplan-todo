@@ -15,7 +15,7 @@ import java.util.List;
  * Created on 2/12/14.
  */
 @Controller
-@RequestMapping("trips")
+@RequestMapping("rest/trips")
 public class TripController {
 
     @Autowired

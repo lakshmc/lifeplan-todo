@@ -5,6 +5,8 @@ import com.lifeplan.models.activity.Activity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created on 2/18/14.
  */
 @Controller
-@RequestMapping(value = "activities/{id}")
+@RequestMapping(value = "rest/activities/{id}")
 public class ActivityByIdController {
     @Autowired
     ActivityDao activityDao;
@@ -38,12 +40,13 @@ public class ActivityByIdController {
     @RequestMapping(method = RequestMethod.DELETE)
     public
     @ResponseBody
-    void deleteActivityById(@PathVariable String id) {
+    ResponseEntity deleteActivityById(@PathVariable String id) {
         log.debug("got id:" + id);
         if (id.equals("123")) {
             throw new DuplicateKeyException("test exception");
         }
         activityDao.deleteActivityById(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

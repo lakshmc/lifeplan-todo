@@ -4,6 +4,8 @@ import com.lifeplan.dao.activity.ActivityDao;
 import com.lifeplan.models.activity.Activity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value = "activities")
+@RequestMapping(value = "rest/activities")
 public class ActivityController {
     private static final Logger log = Logger.getLogger(ActivityController.class);
 
@@ -28,17 +30,17 @@ public class ActivityController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Activity> getAllActivity() {
-        return activityDao.getAllActivity();
+    ResponseEntity<List<Activity>> getAllActivity() {
+        return new ResponseEntity<List<Activity>>(activityDao.getAllActivity(), HttpStatus.OK);
     }
-
 
     //create activity
     @RequestMapping(value = "", method = RequestMethod.POST)
     public
     @ResponseBody
-    void addNewActivity(@RequestBody Activity activity) {
+    ResponseEntity addNewActivity(@RequestBody Activity activity) {
         activityDao.createActivity(activity);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 

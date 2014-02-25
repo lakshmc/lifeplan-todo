@@ -1,7 +1,7 @@
-package com.lifeplan.controllers;
+package com.lifeplan.controllers.user;
 
 import com.lifeplan.logic.UserLogic;
-import com.lifeplan.models.User;
+import com.lifeplan.models.user.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created on 2/8/14.
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping("rest/users")
 public class UserController {
     static final Logger logger = Logger.getLogger(UserController.class);
     @Autowired
@@ -29,8 +29,10 @@ public class UserController {
         return userLogic.getAllUsers();
     }
 
-    @RequestMapping(value="create", method = RequestMethod.PUT)
-    public @ResponseBody void saveUser(@RequestBody User user)  throws Exception {
+    @RequestMapping(method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void createUser(@RequestBody User user) throws Exception {
         logger.debug("creating: "+user);
         userLogic.createUser(user);
     }

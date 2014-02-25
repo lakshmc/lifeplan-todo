@@ -15,7 +15,7 @@ import java.util.List;
  * Created on 2/10/14.
  */
 @Controller
-@RequestMapping("todo")
+@RequestMapping("rest/todo")
 public class TodoController {
     static final Logger log = Logger.getLogger(TodoController.class);
 

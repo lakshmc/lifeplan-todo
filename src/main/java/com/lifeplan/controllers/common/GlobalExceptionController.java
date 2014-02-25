@@ -35,14 +35,14 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {DocumentNotFoundException.class, DuplicateKeyException.class})
     @ResponseBody
-    public ResponseEntity<Object> handleDocumentNotFoundException(DocumentNotFoundException e, WebRequest request) {
+    public ResponseEntity<Object> handleDocumentNotFoundException(Exception e, WebRequest request) {
         return handleExceptionInternal(e, getErrorResponse(e), new HttpHeaders(), HttpStatus.PRECONDITION_FAILED,
                 request);
     }
 
     @ExceptionHandler(value = {BadCredentialsException.class})
     @ResponseBody
-    public ResponseEntity<Object> handleBadCredentialsException(DocumentNotFoundException e, WebRequest request) {
+    public ResponseEntity<Object> handleBadCredentialsException(Exception e, WebRequest request) {
         return handleExceptionInternal(e, getErrorResponse(e), new HttpHeaders(), HttpStatus.BAD_REQUEST,
                 request);
     }
