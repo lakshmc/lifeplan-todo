@@ -58,5 +58,6 @@
                                   ignore-resource-not-found="true" />-->
 
     <import resource="appcontext-mongo.xml"/>
+    <import resource="appcontext-security.xml"/>
 
-  </beans>
+</beans>

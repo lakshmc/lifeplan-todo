@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="
+      http://www.springframework.org/schema/security 
+      http://www.springframework.org/schema/security/spring-security-3.2.xsd
+      http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <http pattern="/authenticate" security="none"/>
+    <http pattern="/resources/**" security="none"/>
+
+    <http realm="Protected API" entry-point-ref="restAuthenticationEntryPoint" auto-config="false"
+          use-expressions="true"
+          create-session="stateless" pattern="/rest/**">
+        <custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"/>
+        <!--<intercept-url pattern="/activities/**" access="ROLE_ADMIN"/>-->
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+    </authentication-manager>
+
+    <beans:bean class="com.lifeplan.config.security.AuthenticationTokenProcessingFilter"
+                id="authenticationTokenProcessingFilter">
+        <beans:constructor-arg ref="authenticationManager"/>
+        <!--<constructor-arg beans:ref="authenticationManager"/>-->
+    </beans:bean>
+</beans:beans>
