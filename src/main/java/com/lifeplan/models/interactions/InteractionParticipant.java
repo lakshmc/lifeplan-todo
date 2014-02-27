@@ -1,6 +1,6 @@
 package com.lifeplan.models.interactions;
 
-import com.lifeplan.models.User;
+import com.lifeplan.models.user.User;
 
 /**
  * Created on 2/17/14.

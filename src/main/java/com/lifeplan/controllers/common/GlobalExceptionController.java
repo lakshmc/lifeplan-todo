@@ -2,6 +2,8 @@ package com.lifeplan.controllers.common;
 
 import com.lifeplan.models.exception.DocumentNotFoundException;
 import com.lifeplan.models.exception.ErrorResponse;
+import com.lifeplan.models.exception.InvalidAuthUserException;
+import com.lifeplan.models.exception.UserNotFoundException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DuplicateKeyException;
@@ -26,8 +28,9 @@ import java.util.UUID;
 @ControllerAdvice
 public class GlobalExceptionController extends ResponseEntityExceptionHandler {
     private final static Logger log = Logger.getLogger(GlobalExceptionController.class);
+
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorResponse handleValidationException(Exception e) {
         return getErrorResponse(e);
@@ -43,6 +46,14 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {BadCredentialsException.class})
     @ResponseBody
     public ResponseEntity<Object> handleBadCredentialsException(Exception e, WebRequest request) {
+        return handleExceptionInternal(e, getErrorResponse(e), new HttpHeaders(), HttpStatus.PRECONDITION_FAILED,
+                request);
+    }
+
+    @ExceptionHandler(value = {InvalidAuthUserException.class, UserNotFoundException.class})
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
+    @ResponseBody
+    public ResponseEntity<Object> handleInvalidAuthUserException(Exception e, WebRequest request) {
         return handleExceptionInternal(e, getErrorResponse(e), new HttpHeaders(), HttpStatus.BAD_REQUEST,
                 request);
     }
@@ -52,7 +63,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
         final String errorMsg = new StringBuilder("Lifeplan-Error-ID:[")
                 .append(errorReferenceId).append("]: ")
                 .append(ex.getMessage()).toString();
-        logger.error(errorMsg, ex);
+        log.error(errorMsg, ex);
         return new ErrorResponse(errorReferenceId, errorMsg);
     }
 

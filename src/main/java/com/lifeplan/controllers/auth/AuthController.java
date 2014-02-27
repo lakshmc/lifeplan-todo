@@ -1,8 +1,10 @@
 package com.lifeplan.controllers.auth;
 
 import com.lifeplan.logic.auth.AuthUserLogic;
-import com.lifeplan.models.auth.AuthUser;
+import com.lifeplan.models.user.auth.AuthUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,4 +32,13 @@ public class AuthController {
             throw new BadCredentialsException("Invalid username password combination.");
     }
 
+    @RequestMapping(value = "rest/addAuthUser", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponseEntity addUserCredentials(@RequestBody AuthUser authUser) {
+        // you are about to add a new auth user. A corresponding User object should already be there in db
+        // validate if User.username is same as the username provided in AuthUser
+        authUserLogic.addAuthUser(authUser);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 }

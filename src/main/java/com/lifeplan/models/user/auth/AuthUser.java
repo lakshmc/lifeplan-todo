@@ -1,7 +1,8 @@
-package com.lifeplan.models.auth;
+package com.lifeplan.models.user.auth;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
  * Created on 2/21/14.
@@ -9,9 +10,9 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class AuthUser {
+    @Indexed(unique = true)
     private String username;
     private String password;
-    private String email;
 
     public String getUsername() {
         return username;
@@ -29,11 +30,10 @@ public class AuthUser {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "AuthUser{" +
+                "username='" + username + '\'' +
+                '}';
     }
 }

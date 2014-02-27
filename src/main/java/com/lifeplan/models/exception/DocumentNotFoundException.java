@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 /**
  * Created on 2/10/14.
  */
-public class DocumentNotFoundException extends RuntimeException {
+public class DocumentNotFoundException extends LifeplanException {
     private static final Logger log = Logger.getLogger(DocumentNotFoundException.class);
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class DocumentNotFoundException extends RuntimeException {
     public DocumentNotFoundException(String errCode, String query, Class clazz, String errMsg) {
         this.errCode = errCode;
         loggingMessage = new StringBuilder("DocumentNotFoundException: query:{").append(query).append("} for Class:").append(clazz.getCanonicalName()).toString();
-        this.errMsg = errMsg;
+        super.setMessage(errMsg);
     }
 
     public Object getLoggingMessage() {

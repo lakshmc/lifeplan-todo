@@ -2,7 +2,9 @@ package com.lifeplan.dao.activity.impl;
 
 import com.lifeplan.dao.AbstractMongoHelper;
 import com.lifeplan.dao.activity.ActivityDao;
+import com.lifeplan.logic.util.DateUtil;
 import com.lifeplan.models.activity.Activity;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,10 +27,28 @@ public class ActivityDaoImpl extends AbstractMongoHelper implements ActivityDao 
     }
 
     @Override
+    public void updateActivity(Activity activity) {
+        if (null == activity) {
+            throw new IllegalArgumentException("Activity cannot be null when upserting new activity");
+        } else {
+            if (activity.getStartTimestamp() == null) {
+                DateTime dt = DateUtil.getCurrentDateTime();
+                activity.setLastModified(dt);
+            }
+            updateDocument(activity);
+        }
+    }
+
+    @Override
     public void createActivity(Activity activity) {
         if (null == activity) {
             throw new IllegalArgumentException("Activity cannot be null when adding new activity");
         } else {
+            if (activity.getStartTimestamp() == null) {
+                DateTime dt = DateUtil.getCurrentDateTime();
+                activity.setStartTimestamp(dt);
+                activity.setLastModified(dt);
+            }
             createDocument(activity);
         }
     }

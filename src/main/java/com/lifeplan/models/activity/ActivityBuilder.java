@@ -1,9 +1,5 @@
 package com.lifeplan.models.activity;
 
-import com.lifeplan.models.activity.constants.ACTIVITY_FEELING;
-import com.lifeplan.models.activity.constants.ACTIVITY_LOCATION;
-import com.lifeplan.models.activity.constants.ACTIVITY_PARTICIPANT;
-import com.lifeplan.models.activity.constants.ACTIVITY_TYPE;
 import org.joda.time.DateTime;
 
 /**
@@ -30,8 +26,8 @@ public class ActivityBuilder {
         return this;
     }
 
-    public ActivityBuilder setActivityType(ACTIVITY_TYPE activityType) {
-        activity.setActivityType(activityType);
+    public ActivityBuilder setActivityType(boolean activityType) {
+        activity.setPlannedActivity(activityType);
         return this;
     }
 
@@ -45,17 +41,17 @@ public class ActivityBuilder {
         return this;
     }
 
-    public ActivityBuilder setActivityParticipant(ACTIVITY_PARTICIPANT activityParticipant) {
-        activity.setActivityParticipant(activityParticipant);
+    public ActivityBuilder setActivityParticipant(ActivityParticipants activityParticipant) {
+        activity.setActivityParticipants(activityParticipant);
         return this;
     }
 
-    public ActivityBuilder setActivityFeeling(ACTIVITY_FEELING activityFeeling) {
+    public ActivityBuilder setActivityFeeling(ActivityFeeling activityFeeling) {
         activity.setActivityFeeling(activityFeeling);
         return this;
     }
 
-    public ActivityBuilder setActivityLocation(ACTIVITY_LOCATION activityLocation) {
+    public ActivityBuilder setActivityLocation(ActivityLocation activityLocation) {
         activity.setActivityLocation(activityLocation);
         return this;
     }

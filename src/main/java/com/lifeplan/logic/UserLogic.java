@@ -1,6 +1,6 @@
 package com.lifeplan.logic;
 
-import com.lifeplan.models.User;
+import com.lifeplan.models.user.User;
 
 import java.util.List;
 
@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface UserLogic {
     void createUser(User user);
+
     List<User> getAllUsers();
 }

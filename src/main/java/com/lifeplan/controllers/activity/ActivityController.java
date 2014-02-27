@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,9 +39,15 @@ public class ActivityController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseEntity addNewActivity(@RequestBody Activity activity) {
-        activityDao.createActivity(activity);
-        return new ResponseEntity(HttpStatus.CREATED);
+    ResponseEntity upsertActivity(@RequestBody Activity activity) {
+        log.debug(activity);
+        if (StringUtils.isEmpty(activity.getId())) {
+            activityDao.createActivity(activity);
+            return new ResponseEntity(HttpStatus.CREATED);
+        } else {
+            activityDao.updateActivity(activity);
+            return new ResponseEntity(HttpStatus.OK);
+        }
     }
 
 

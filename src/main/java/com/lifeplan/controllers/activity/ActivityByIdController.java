@@ -4,7 +4,6 @@ import com.lifeplan.dao.activity.ActivityDao;
 import com.lifeplan.models.activity.Activity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,10 +28,6 @@ public class ActivityByIdController {
     public
     @ResponseBody
     Activity getActivityById(@PathVariable String id) {
-        log.debug("got id:" + id);
-        if (id.equals("123")) {
-            throw new DuplicateKeyException("test exception");
-        }
         return activityDao.getActivityById(id);
     }
 
@@ -41,10 +36,7 @@ public class ActivityByIdController {
     public
     @ResponseBody
     ResponseEntity deleteActivityById(@PathVariable String id) {
-        log.debug("got id:" + id);
-        if (id.equals("123")) {
-            throw new DuplicateKeyException("test exception");
-        }
+        log.error("Deleting activity " + id);
         activityDao.deleteActivityById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

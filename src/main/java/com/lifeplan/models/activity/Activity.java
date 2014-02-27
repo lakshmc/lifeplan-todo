@@ -1,26 +1,35 @@
 package com.lifeplan.models.activity;
 
-import com.lifeplan.models.activity.constants.ACTIVITY_FEELING;
-import com.lifeplan.models.activity.constants.ACTIVITY_LOCATION;
-import com.lifeplan.models.activity.constants.ACTIVITY_PARTICIPANT;
-import com.lifeplan.models.activity.constants.ACTIVITY_TYPE;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.joda.time.DateTime;
 
 /**
  * Created on 2/14/14.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Activity {
 
     private String id;
     private String name;
-    private ACTIVITY_TYPE activityType;
+    private boolean plannedActivity;
     private DateTime startTimestamp;
     private DateTime endTimestamp;
-    private ACTIVITY_PARTICIPANT activityParticipant;
-    private ACTIVITY_FEELING activityFeeling;
-    private ACTIVITY_LOCATION activityLocation;
+    private DateTime lastModified;
+    private ActivityParticipants activityParticipants;
+    private ActivityFeeling activityFeeling;
+    private ActivityLocation activityLocation;
     private boolean consuming;
     private String notes;
+
+    public ActivityParticipants getActivityParticipants() {
+        return activityParticipants;
+    }
+
+    public void setActivityParticipants(ActivityParticipants activityParticipants) {
+        this.activityParticipants = activityParticipants;
+    }
 
     public String getName() {
         return name;
@@ -30,12 +39,16 @@ public class Activity {
         this.name = name;
     }
 
-    public ACTIVITY_TYPE getActivityType() {
-        return activityType;
+  /*  public boolean getPlannedActivity() {
+        return isPlannedActivity();
+    }*/
+
+    public boolean isPlannedActivity() {
+        return plannedActivity;
     }
 
-    public void setActivityType(ACTIVITY_TYPE activityType) {
-        this.activityType = activityType;
+    public void setPlannedActivity(boolean plannedActivity) {
+        this.plannedActivity = plannedActivity;
     }
 
     public DateTime getStartTimestamp() {
@@ -54,27 +67,19 @@ public class Activity {
         this.endTimestamp = endTimestamp;
     }
 
-    public ACTIVITY_PARTICIPANT getActivityParticipant() {
-        return activityParticipant;
-    }
-
-    public void setActivityParticipant(ACTIVITY_PARTICIPANT activityParticipant) {
-        this.activityParticipant = activityParticipant;
-    }
-
-    public ACTIVITY_FEELING getActivityFeeling() {
+    public ActivityFeeling getActivityFeeling() {
         return activityFeeling;
     }
 
-    public void setActivityFeeling(ACTIVITY_FEELING activityFeeling) {
+    public void setActivityFeeling(ActivityFeeling activityFeeling) {
         this.activityFeeling = activityFeeling;
     }
 
-    public ACTIVITY_LOCATION getActivityLocation() {
+    public ActivityLocation getActivityLocation() {
         return activityLocation;
     }
 
-    public void setActivityLocation(ACTIVITY_LOCATION activityLocation) {
+    public void setActivityLocation(ActivityLocation activityLocation) {
         this.activityLocation = activityLocation;
     }
 
@@ -100,6 +105,30 @@ public class Activity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", plannedActivity=" + plannedActivity +
+                ", startTimestamp=" + startTimestamp +
+                ", endTimestamp=" + endTimestamp +
+                ", activityParticipants=" + activityParticipants +
+                ", activityFeeling=" + activityFeeling +
+                ", activityLocation=" + activityLocation +
+                ", consuming=" + consuming +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
+
+    public DateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(DateTime lastModified) {
+        this.lastModified = lastModified;
     }
 
    /* name: watching a movie

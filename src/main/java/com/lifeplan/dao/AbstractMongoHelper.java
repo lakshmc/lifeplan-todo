@@ -28,6 +28,16 @@ public abstract class AbstractMongoHelper {
         return mongoTemplate.findById(id, entityClass);
     }
 
+    protected <T> T findDocumentByField(String fieldName, String fieldValue, Class<T> clazz) {
+        if (StringUtils.isEmpty(fieldName)) {
+            throw new IllegalArgumentException(fieldName + " or " + fieldValue + " cannot be null when attempting to query " + clazz.getName());
+        } else {
+            Query q = new Query(Criteria.where(fieldName).is(fieldValue));
+            return mongoTemplate.findOne(q, clazz);
+        }
+
+    }
+
     protected <T> void createDocument(T document) {
         if (document != null) {
             if (!mongoTemplate.collectionExists(document.getClass())) {
@@ -57,7 +67,7 @@ public abstract class AbstractMongoHelper {
 
     protected <T> void deleteDocumentById(String id, Class<T> clazz) {
         if (StringUtils.isEmpty(id)) {
-            throw new IllegalArgumentException("Id cannot be null when attempting to delete TodoItem");
+            throw new IllegalArgumentException("Id cannot be null when attempting to delete " + clazz.getName());
         } else {
             Query q = new Query(Criteria.where("id").is(id));
             mongoTemplate.remove(q, clazz);

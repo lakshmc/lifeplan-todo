@@ -1,19 +1,19 @@
 <web-app version="2.4"
-	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+         xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-	<display-name>Life Plan</display-name>
+    <display-name>Life Plan</display-name>
 
     <servlet>
-		<servlet-name>lifeplan</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-name>lifeplan</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/lifeplan-servlet.xml</param-value>
         </init-param>
-	</servlet>
+    </servlet>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -27,19 +27,33 @@
     </listener>
 
     <servlet-mapping>
-		<servlet-name>lifeplan</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+        <servlet-name>lifeplan</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <!--The filter must necessarily be named ‘springSecurityFilterChain’ to match the default bean created by
     Spring Security in the container-->
-    <filter>
+    <!--<filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
+
+    <!--Enable SSL-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>lifeplan</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <!--turn off ssl-->
+            <!--<transport-guarantee>NONE</transport-guarantee>-->
+            <!--use ssl-->
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 
 </web-app>
