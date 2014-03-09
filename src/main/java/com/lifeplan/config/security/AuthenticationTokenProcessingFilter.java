@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -15,7 +16,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created on 2/21/14.
@@ -34,24 +34,32 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        /*
         @SuppressWarnings("unchecked")
         Map<String, String[]> parms = request.getParameterMap();
-        /*logger.debug("i am at the processing filter");
-        logger.debug(parms);*/
-        if (parms.containsKey("token")) {
-            String token = parms.get("token")[0]; // grab the first "token" parameter
+        logger.debug(parms);
+        */
 
-            // validate the token
-            if (tokenUtils.validate(token)) {
-                // determine the user based on the (already validated) token
-                UserDetails userDetails = tokenUtils.getUserFromToken(token);
-                // build an Authentication object with the user's info
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-                // set the authentication into the SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (request instanceof HttpServletRequest) {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            String hashToken = httpRequest.getHeader("token");
+//            if (parms.containsKey("token")) {
+            if (!StringUtils.isEmpty(hashToken)) {
+                //String token = parms.get("token")[0]; // grab the first "token" parameter
+                // validate the token
+                if (tokenUtils.validate(hashToken, httpRequest)) {
+                    // determine the user based on the (already validated) token
+                    UserDetails userDetails = tokenUtils.getUserFromToken(hashToken);
+                    // build an Authentication object with the user's info
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
+                    // set the authentication into the SecurityContext
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
+            //System.out.println(httpRequest.getMethod()+" "+httpRequest.getRequestURL()+" or "+httpRequest.getRequestURI());
         }
         // continue thru the filter chain
         logger.debug("completed auth filter");

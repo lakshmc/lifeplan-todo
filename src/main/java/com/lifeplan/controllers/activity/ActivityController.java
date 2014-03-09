@@ -8,11 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,14 +41,18 @@ public class ActivityController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseEntity upsertActivity(@RequestBody Activity activity) {
+    ResponseEntity upsertActivity(@RequestBody @Valid Activity activity, BindingResult result) {
         log.debug(activity);
-        if (StringUtils.isEmpty(activity.getId())) {
-            activityDao.createActivity(activity);
-            return new ResponseEntity(HttpStatus.CREATED);
+        if (result.hasErrors()) {
+            return new ResponseEntity(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         } else {
-            activityDao.updateActivity(activity);
-            return new ResponseEntity(HttpStatus.OK);
+            if (StringUtils.isEmpty(activity.getId())) {
+                activityDao.createActivity(activity);
+                return new ResponseEntity(HttpStatus.CREATED);
+            } else {
+                activityDao.updateActivity(activity);
+                return new ResponseEntity(HttpStatus.OK);
+            }
         }
     }
 

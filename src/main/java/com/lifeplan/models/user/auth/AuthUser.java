@@ -2,6 +2,8 @@ package com.lifeplan.models.user.auth;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
@@ -11,7 +13,11 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class AuthUser {
     @Indexed(unique = true)
+    @NotEmpty
+    @Length(min = 5, max = 15)
     private String username;
+    @NotEmpty
+    @Length(min = 10, max = 50)
     private String password;
 
     public String getUsername() {

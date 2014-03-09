@@ -2,7 +2,7 @@ package com.lifeplan.logic.impl;
 
 import com.lifeplan.dao.UserDao;
 import com.lifeplan.logic.UserLogic;
-import com.lifeplan.models.User;
+import com.lifeplan.models.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

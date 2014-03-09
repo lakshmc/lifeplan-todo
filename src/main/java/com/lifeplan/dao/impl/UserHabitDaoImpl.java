@@ -1,15 +1,11 @@
 package com.lifeplan.dao.impl;
 
 import com.lifeplan.dao.UserHabitDao;
-import com.lifeplan.models.Habit;
-import com.lifeplan.models.User;
 import com.lifeplan.models.UserHabit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +16,7 @@ public class UserHabitDaoImpl implements UserHabitDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public static final String USER_HABIT_COLLECTION_NAME="user_habit";
+    public static final String USER_HABIT_COLLECTION_NAME = "user_habit";
 
     @Override
     public List<UserHabit> loadUserHabits() {

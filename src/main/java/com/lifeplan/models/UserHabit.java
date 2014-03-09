@@ -1,9 +1,8 @@
 package com.lifeplan.models;
 
+import com.lifeplan.models.user.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.io.Serializable;
 
 /**
  * Created on 2/7/14.
@@ -31,12 +30,13 @@ public class UserHabit {
     public void setHabit(Habit habit) {
         this.habit = habit;
     }
-    private UserHabit(User user, Habit habit){
-        this.user=user;
-        this.habit=habit;
+
+    private UserHabit(User user, Habit habit) {
+        this.user = user;
+        this.habit = habit;
     }
 
-    public static UserHabit buildUserHabit(User user, Habit habit){
+    public static UserHabit buildUserHabit(User user, Habit habit) {
         return new UserHabit(user, habit);
     }
 

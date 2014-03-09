@@ -1,12 +1,14 @@
 package com.lifeplan.config.security.impl;
 
 import com.lifeplan.config.security.TokenUtils;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class TokenUtilsImpl implements TokenUtils {
     public static final String usertoken = "usertoken";
     public static final String admintoken = "admintoken";
+
+    private static final Logger log = Logger.getLogger(TokenUtilsImpl.class);
 
     @Override
     public String getToken(UserDetails userDetails) {
@@ -37,6 +41,13 @@ public class TokenUtilsImpl implements TokenUtils {
 
     @Override
     public boolean validate(String token) {
+        return TokenUtilsImpl.usertoken.equals(token) || TokenUtilsImpl.admintoken.equals(token);
+    }
+
+    @Override
+    public boolean validate(String token, HttpServletRequest request) {
+        StringBuilder sb = new StringBuilder("validating hash token: received token ").append(token);
+        log.debug(sb.toString());
         return TokenUtilsImpl.usertoken.equals(token) || TokenUtilsImpl.admintoken.equals(token);
     }
 
