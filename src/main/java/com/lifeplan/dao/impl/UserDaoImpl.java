@@ -35,6 +35,13 @@ public class UserDaoImpl extends AbstractMongoHelper implements UserDao {
 
     @Override
     public User getUserByUserName(String username) {
+        if (StringUtils.isEmpty(username))
+            throw new IllegalArgumentException("username cannot be null for lookup");
         return findDocumentByField("username", username, User.class);
+    }
+
+    @Override
+    public boolean isUsernameExists(String username) {
+        return !StringUtils.isEmpty(username) && getUserByUserName(username) != null;
     }
 }
