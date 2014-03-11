@@ -6,13 +6,26 @@
 
 ### Why do we need this?
 Coz I think so, that's why! Also,
-* Create and manage Todo items. Then mark them as completed. You can also edit exiting ones and delete them if you don't like them.
-* Create and manage your vacations and other travel escapades.
+
+* Keep track of the everyday activities that you spend time on a daily basis.
+* Create and manage Todo items. Then mark them as completed. You can also edit exiting ones and delete them if you don't like them. (future)
+* Create and manage your vacations and other travel escapades. (future)
 
 ### Get Started
 * Install the technologies/frameworks listed below
 * set the log file location in src/main/resources/log4j.properties _defaults to ./log/lifeplan.log
 * set the mongodb instance connection parameters in src/main/resources/properties/lifeplan-prod.properties
+
+### Deploying
+Properties files are selected for environment based on maven build profile
+
+##### Local
+* deploy and run in local Jetty configured in pom (mvn jetty:run -Plocal)
+* build war file and deploy to a server like Tomcat (mvn package -Plocal)
+
+##### Prod
+* set production specific properties in /properties/lifeplan-prod.properties
+* use maven profile prod (mvn package -Pprod)
 
 #### Technologies
 * Java 1.7
