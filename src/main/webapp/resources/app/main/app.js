@@ -5,15 +5,16 @@
 var app = angular.module('lifeplan', [
     'ngRoute',
         'lifeplan.filters',
-        'lifeplan.services',
-        'lifeplan.directives',
-        'lifeplan.controllers'
+    'lifeplan.services'
 ]);
 
 app.config(function ($locationProvider, $routeProvider) {
     $routeProvider
-        .when('/about', {
+        .when('/home', {
             templateUrl: 'resources/app/main/partials/home.html'
+        })
+        .when('/about', {
+            templateUrl: 'resources/app/main/partials/about.html'
         })
         .when('/showactivities', {
             templateUrl: 'resources/app/activity/partials/activities-list.html'
@@ -29,5 +30,5 @@ app.config(function ($locationProvider, $routeProvider) {
          controller: 'ServiceCatalogController'
          })*/;
 
-    $routeProvider.otherwise({redirectTo: '/about'});
+    $routeProvider.otherwise({redirectTo: '/home'});
 });

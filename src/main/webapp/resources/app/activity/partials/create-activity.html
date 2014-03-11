@@ -4,81 +4,152 @@
             <h1 id="type">What are you doing now?</h1>
         </div>
         <div class="well">
-            <form class="bs-example form-horizontal">
+            <form
+                    class="form-horizontal"
+                    id="myform"
+                    name="myform"
+                    onsubmit="javascript: return false"
+                    enctype="application/json"
+                    ng-controller="ActivityController"
+                    ng-init="initNewActivity()"
+                    novalidate confirm-on-exit>
+                <!--<div class="alert alert-dismissable alert-danger" ng-if="showValidationMessages(myform)">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    Looks like one or more required fields are missing..
+                </div>-->
                 <fieldset>
-                    <legend>Legend</legend>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                    <!--activity name-->
+                    <div class="form-group"
+                         ng-class="{'has-error': myform.activityName.$invalid && showValidationMessages(myform)}">
+                        <label for="activityName" class="col-lg-2 control-label"></label>
 
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                        <div class="col-lg-12">
+                            <input type="text" class="form-control" name='activityName' id="activityName"
+                                   ng-model='model.name'
+                                   placeholder="'Writing email' or 'Attending conferece call'…"
+                                   required>
+                            <span class="help-block pull-right"><em>
+                                <small>you can change this anytime later so don't fret</small>
+                            </em></span>
+                            <!--<div ng-show="myform.activityName.$error.required && showValidationMessages(myform)">
+                                This field is required
+                            </div>-->
                         </div>
                     </div>
+                    <!--when did you start-->
+
+                    <!--completed yes/no-->
                     <div class="form-group">
-                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                        <label class="col-lg-3 control-label">Are you done?</label>
 
-                        <div class="col-lg-10">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Checkbox
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="textArea" class="col-lg-2 control-label">Textarea</label>
-
-                        <div class="col-lg-10">
-                            <textarea class="form-control" rows="3" id="textArea"></textarea>
-                            <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Radios</label>
-
-                        <div class="col-lg-10">
+                        <div class="col-lg-9">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
-                                           checked="">
-                                    Option one is this
+                                    <input type="radio" name="completedRadios" id="completed_yes" value='true'
+                                           ng-model="activityCompleted">
+                                    Yes
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                    Option two can be something else
+                                    <input type="radio" name="completedRadios" id="completed_no" value='false'
+                                           ng-model="activityCompleted">
+                                    No
+                                </label>
+                            </div>
+                            <span class="help-block">
+                                <em>
+                                    <small>Select 'Yes' if you are done with the current activity. If not select 'No'.
+                                    </small>
+                                </em>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!--activity location-->
+                    <div class="form-group"
+                         ng-class="{'has-error': myform.locationSelectName.$invalid && showValidationMessages(myform)}">
+                        <label for="locationSelect" class="col-lg-3 control-label">Where are you?</label>
+
+                        <div class="col-lg-9">
+                            <select class="form-control" id="locationSelect" required
+                                    ng-model='model.activityLocation.locationName' name="locationSelectName"
+                                    style="width: auto">
+                                <option disabled selected value="" style="display:none;">select…</option>
+                                <option>Home</option>
+                                <option>Office</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--feeling positive/negative-->
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Are you enjoying doing this?</label>
+
+                        <div class="col-lg-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="activityFeelingRadios" id="activityFeeling_positive"
+                                           value="positive"
+                                           ng-model="model.activityFeeling.name">
+                                    Yes, it's fun
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="activityFeelingRadios" id="activityFeeling_negative"
+                                           value="negative"
+                                           ng-model="model.activityFeeling.name">
+                                    No, I'd rather be doing something else
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="select" class="col-lg-2 control-label">Selects</label>
+                    <!--activity participants-->
 
-                        <div class="col-lg-10">
-                            <select class="form-control" id="select">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                            <br>
-                            <select multiple="" class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
+
+                    <!--planned YES/NO-->
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Did you plan to do this?</label>
+
+                        <div class="col-lg-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="plannedActivityRadios" id="plannedActivity_yes"
+                                           value='true'
+                                           ng-model="model.plannedActivity">
+                                    Yes, I chose to do this
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="plannedActivityRadios" id="plannedActivity_no"
+                                           value='false'
+                                           ng-model="model.plannedActivity">
+                                    No, it was unplanned
+                                </label>
+                            </div>
                         </div>
                     </div>
+
+                    <!--notes-->
                     <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
+                        <label for="textArea" class="col-lg-3 control-label">Additional notes</label>
+
+                        <div class="col-lg-9">
+                            <textarea class="form-control" rows="3" id="textArea"
+                                      placeholder="Add optional info here for extra details and context…"
+                                      ng-model='model.notes'></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-9 col-lg-offset-3">
                             <button class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="next" class="btn btn-primary"
+                                    ng-click="saveAndContinue(myform)">Submit
+                            </button>
                         </div>
                     </div>
                 </fieldset>

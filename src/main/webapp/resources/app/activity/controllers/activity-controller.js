@@ -3,17 +3,44 @@
 /**
  * @constructor
  */
-var ActivityController = function ($scope, $http) {
+var ActivityController = function ($scope, $rootScope, $http) {
+
+    var emptyActivity = {
+        "name": null,
+        "plannedActivity": 'true',
+        "startTimestamp": null,
+        "endTimestamp": null,
+        "activityParticipants": {
+            "participants": [
+                {
+                    "nickname": "marky"
+                }
+            ]
+        },
+        "activityFeeling": {
+            "name": "positive"
+        },
+        "activityLocation": {
+            "locationName": ""
+        },
+        "consuming": 'false',
+        "notes": null
+    };
 
     $scope.init = function () {
         $scope.params = {};
 //        $scope.send();
     };
 
+    $scope.initNewActivity = function () {
+        $scope.model = emptyActivity;
+        $scope.activityCompleted = 'false';
+    };
+
     $scope.getActivities = function () {
-        console.log('called..');
+        console.log('getting all activities..');
         $http({
-            url: '/lifeplan/activities',
+            url: 'rest/activities',
             method: "GET",
             data: $scope.params,
             headers: {'Content-Type': 'application/json'}
@@ -27,4 +54,9 @@ var ActivityController = function ($scope, $http) {
 
     };
 
+    $scope.saveAndContinue = function (myform) {
+        //console.log('saving activity...');
+//        console.log($scope.model);
+        $rootScope.saveAndContinue(myform, 'rest/activities', $scope.model, undefined);
+    };
 }

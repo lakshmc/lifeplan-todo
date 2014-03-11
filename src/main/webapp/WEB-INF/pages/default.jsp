@@ -12,26 +12,25 @@
     <link href="resources/common/css/bootstrap/bootswatch-cosmo/bootstrap.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
-<body>
+<body ng-controller="MainCntl">
 <div id="wrap">
 
     <!-- Fixed navbar -->
     <div ng-include src="'resources/app/main/layout/topnav.html'"></div>
 
     <!-- Begin page content -->
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <!--main content-->
             <div class="col-lg-9">
-                <%--<section id="mainSection" style="margin-top:0">--%>
                 <section id="mainSection">
                     <ng-view>Loading...</ng-view>
                 </section>
             </div>
 
             <!--right nav-->
-            <div class="col-lg-3">
-                <div ng-include src="'resources/app/main/layout/leftnav.html'"></div>
+            <div class="col-lg-offset-1 col-lg-2" style="border-left: solid 1px">
+            <div ng-include src="'resources/app/main/layout/leftnav.html'"></div>
             </div>
         </div>
     </div>
@@ -42,7 +41,8 @@
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
-<!--<script src="resources/lib/jquery/1.10.2/jquery.js"></script>-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 <script src="resources/common/js/angular/angular.js"></script>
 <script src="resources/common/js/angular/angular-route.js"></script>
