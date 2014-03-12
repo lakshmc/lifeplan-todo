@@ -53,10 +53,17 @@ var ActivityController = function ($scope, $rootScope, $http) {
             });
 
     };
+    var postCallBack = function (success) {
+        console.log('at callback');
+        if (success) {
+            console.log(success);
+            $rootScope.setRoute('/showactivities');
+        }
+    };
 
     $scope.saveAndContinue = function (myform) {
         //console.log('saving activity...');
 //        console.log($scope.model);
-        $rootScope.saveAndContinue(myform, 'rest/activities', $scope.model, undefined);
+        $rootScope.saveAndContinue(myform, 'rest/activities', $scope.model, postCallBack);
     };
 }

@@ -1,9 +1,7 @@
 package com.lifeplan.config.security.util;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+//import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.security.SignatureException;
 
 /**
@@ -46,8 +44,8 @@ public class HMACUtil {
      */
     public static String calculateRFC2104HMAC(String data, String key)
             throws java.security.SignatureException {
-        String result;
-        try {
+        String result = "";
+        /*try {
             // get an hmac_sha1 key from the raw key bytes
             SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), HMAC_SHA256_ALGORITHM);
 
@@ -63,7 +61,7 @@ public class HMACUtil {
 
         } catch (Exception e) {
             throw new SignatureException("Failed to generate HMAC : " + e.getMessage());
-        }
+        }*/
         return result;
     }
 }

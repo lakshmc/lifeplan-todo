@@ -13,7 +13,7 @@
             return $rootScope.hasValidationMessages && form.$invalid;
         };
 
-        $rootScope.saveAndContinue = function (myform, postUrl, payload, callback) {
+        $rootScope.saveAndContinue = function (myform, postUrl, payload, postCallback) {
             //alert($("#myform")[0].checkValidity());
             console.log(payload);
             if (myform.$valid) {
@@ -38,15 +38,36 @@
                             $log.error('Error response:' + JSON.stringify(data));
                         }
                         $rootScope.hasValidationMessages = false;
+                        executeCallbackSuccess(postCallback);
                     }).error(function (data, status, headers, config) {
                         $log.error('Error response:' + JSON.stringify(data));
                         $rootScope.hasValidationMessages = true;
+                        executeCallbackFailure(postCallback);
                     });
             } else {
                 console.log(myform);
                 $rootScope.hasValidationMessages = true;
                 $log.error('Form Validation Failed');
             }
+        };
+
+        var executeCallback = function (callback, successFlag) {
+            if (_.isFunction(callback)) {
+                callback(successFlag);
+            }
+        };
+
+        var executeCallbackSuccess = function (callback) {
+            executeCallback(callback, true);
+        };
+
+        var executeCallbackFailure = function (callback) {
+            executeCallback(callback, false);
+        };
+
+        $rootScope.setRoute = function (view) {
+            $location.path(view);
+            //$rootScope.clearFormLevelMessages();
         };
     });
 
