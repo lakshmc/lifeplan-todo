@@ -26,27 +26,44 @@
                             <td>{{$index + 1}}</td>
                             <td class="text-left">{{activity.name}}</td>
                             <td>
-                                <i ng-if="activity.plannedActivity" class="fa fa-check fa-lg" style="color: green"></i>
-                                <i ng-if="!activity.plannedActivity" class="fa fa-times fa-lg"></i>
+                                <i ng-if="activity.plannedActivity" class="fa fa-check fa-lg" style="color: green"
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="Was pre-planned and executed"></i>
+                                <i ng-if="!activity.plannedActivity" class="fa fa-times fa-lg"
+                                   data-toggle="tooltip" data-placement="bottom" title="Was un-planned"></i>
                             </td>
                             <!--<td>{{activity.startTimestamp}}</td>
                             <td>{{activity.endTimestamp}}</td>-->
                             <!--<td>{{activity.activityParticipant}}</td>-->
                             <td>
                                 <i ng-if="activity.activityFeeling.name=='positive'" class="fa fa-smile-o fa-lg"
-                                   style="color: green"></i>
-                                <i ng-if="activity.activityFeeling.name!='positive'" class="fa fa-frown-o fa-lg"></i>
+                                   style="color: green" data-toggle="tooltip" data-placement="bottom"
+                                   title="Enjoyed it"></i>
+                                <i ng-if="activity.activityFeeling.name!='positive'" class="fa fa-frown-o fa-lg"
+                                   data-toggle="tooltip" data-placement="bottom" title="Didn't enjoy it"></i>
                             </td>
                             <td>
-                                <i ng-if="activity.activityLocation.locationName=='Home'" class="fa fa-home fa-lg"></i>
-                                <i ng-if="activity.activityLocation.locationName=='Office'"
+
+                                <i ng-if="stringUtil.equalsIgnoreCase(activity.activityLocation.locationName,'home')"
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="{{activity.activityLocation.locationName}}"
+                                   class="fa fa-home fa-lg"></i>
+                                <i ng-if="stringUtil.equalsIgnoreCase(activity.activityLocation.locationName,'office')"
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="{{activity.activityLocation.locationName}}"
                                    class="fa fa-building-o fa-lg"></i>
-                                <i ng-if="activity.activityLocation.locationName=='Other'"
+                                <i ng-if="stringUtil.equalsIgnoreCase(activity.activityLocation.locationName,'other')"
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="{{activity.activityLocation.locationName}}"
                                    class="fa fa-cloud fa-lg"></i>
                             </td>
                             <td>
-                                <i ng-if="!activity.consuming" class="fa fa-check fa-lg" style="color: green"></i>
-                                <i ng-if="activity.consuming" class="fa fa-times fa-lg"></i>
+                                <i ng-if="!activity.consuming" class="fa fa-check fa-lg" style="color: green"
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="You actively produced something"></i>
+                                <i ng-if="activity.consuming" class="fa fa-times fa-lg"
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="You consumed"></i>
                             </td>
                             <td>{{activity.notes}}</td>
                         </tr>

@@ -2,13 +2,12 @@
 
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('lifeplan', [
+var lifeplanApp = angular.module('lifeplan', [
     'ngRoute',
-        'lifeplan.filters',
-    'lifeplan.services'
+    'lifeplan.filters'
 ]);
 
-app.config(function ($locationProvider, $routeProvider) {
+lifeplanApp.config(function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/home', {
             templateUrl: 'resources/app/main/partials/home.html'
@@ -31,4 +30,8 @@ app.config(function ($locationProvider, $routeProvider) {
          })*/;
 
     $routeProvider.otherwise({redirectTo: '/home'});
+});
+
+lifeplanApp.run(function ($rootScope, StringUtil) {
+    $rootScope.stringUtil = StringUtil;
 });
